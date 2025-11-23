@@ -18,10 +18,10 @@ RUN dotnet publish "LABO12.csproj" -c Release -o /app/publish /p:UseAppHost=fals
 # Etapa final - imagen de runtime
 FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS final
 WORKDIR /app
-EXPOSE 8080
 COPY --from=publish /app/publish .
 
-# Configurar Kestrel para escuchar en el puerto correcto
-ENV ASPNETCORE_URLS=http://+:8080
+# Crear script de inicio que use la variable PORT de Render
+RUN echo '#!/bin/sh\nexport ASPNETCORE_URLS="http://+:${PORT:-8080}"\nexec dotnet LABO12.dll' > /app/start.sh && \
+    chmod +x /app/start.sh
 
-ENTRYPOINT ["dotnet", "LABO12.dll"]
+ENTRYPOINT ["/app/start.sh"]
