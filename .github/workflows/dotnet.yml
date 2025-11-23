@@ -1,0 +1,35 @@
+name: Build and Deploy .NET App
+
+on:
+  push:
+    branches:
+      - main  # Se ejecuta automáticamente cuando hay cambios en la rama principal
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v2
+
+    - name: Set up .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '8.0'
+
+    - name: Restore dependencies
+      run: dotnet restore
+
+    - name: Build application
+      run: dotnet build --configuration Release
+
+    - name: Publish application
+      run: dotnet publish --configuration Release --output ./published
+
+    # Ejemplo de despliegue (requiere clave SSH configurada en secrets)
+    - name: Deploy to server
+      run: |
+        scp -o StrictHostKeyChecking=no -r ./published username@server:/path/to/deploy
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
