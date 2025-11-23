@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: labo12
+    runtime: docker
+    plan: free
+    branch: master
+    healthCheckPath: /
+    envVars:
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Production
