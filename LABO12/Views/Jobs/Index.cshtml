@@ -3,10 +3,24 @@
 }
 <h2>Pruebas con Hangfire</h2>
 
+<h3>Jobs Básicos</h3>
 <ul>
     <li><a href="/Jobs/FireAndForget">🔥 Fire-and-Forget Job</a></li>
     <li><a href="/Jobs/Delayed">⏱️ Job Programado</a></li>
     <li><a href="/Jobs/Recurrent">🔁 Job Recurrente</a></li>
 </ul>
 
-<a href="/hangfire" target="_blank">Abrir Dashboard Hangfire</a>
+<h3>Paso 8: Simulación de Errores y Reintentos</h3>
+<ul>
+    <li><a href="/Jobs/JobWithError">❌ Job que SIEMPRE falla</a> - Demuestra reintentos automáticos</li>
+    <li><a href="/Jobs/JobWithTemporaryError">⚠️ Job con error temporal</a> - Falla 2 veces y luego funciona</li>
+    <li><a href="/Jobs/JobWithIntermittentError">🎲 Job con error intermitente</a> - 50% probabilidad de fallo</li>
+    <li><a href="/Jobs/JobWithTimeout">⏳ Job con timeout</a> - Simula error de conexión</li>
+    <li><a href="/Jobs/JobWithValidation">🔍 Job con validación (fallará)</a> - Usuario vacío</li>
+    <li><a href="/Jobs/JobWithValidationSuccess">✅ Job con validación exitosa</a></li>
+    <li><a href="/Jobs/DelayedJobWithError">⏱️❌ Job programado con error</a> - Se ejecuta en 5 segundos</li>
+    <li><a href="/Jobs/RecurringJobWithError">🔁⚠️ Job recurrente con error</a> - Cada minuto</li>
+</ul>
+
+<hr />
+<a href="/hangfire" target="_blank" class="btn btn-primary">📊 Abrir Dashboard Hangfire</a>
