@@ -4,6 +4,10 @@ using LABO12.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Configurar Kestrel para escuchar en el puerto correcto
+var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
+builder.WebHost.UseUrls($"http://0.0.0.0:{port}");
+
 // MVC
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<NotificationService>();
@@ -24,10 +28,14 @@ var app = builder.Build();
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    app.UseHsts();
+    // Render maneja HTTPS, no usar HSTS en producción
 }
-app.UseHangfireDashboard();
-app.UseHttpsRedirection();
+else
+{
+    // Solo redirigir a HTTPS en desarrollo local
+    app.UseHttpsRedirection();
+}
+
 app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthorization();
